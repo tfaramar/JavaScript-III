@@ -144,6 +144,7 @@ Humanoid.prototype.greet = function () {
       target.healthPoints = target.healthPoints - 5;
       console.log(target.takeDamage());
     } else {
+      target.healthPoints = 0;
       console.log(target.destroy());
     }
   };
@@ -157,12 +158,13 @@ Humanoid.prototype.greet = function () {
       target.healthPoints = target.healthPoints - 8;
       console.log(target.takeDamage());
     } else {
+      target.healthPoints = 0;
       console.log(target.destroy());
     }
   };
 
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
-  const drifter = new Hero({
+  const testHero = new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -179,7 +181,7 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
-  const homesteader = new Villain({
+  const testVillain = new Villain({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -194,3 +196,8 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Common Tongue',
   });
+
+  console.log(testVillain.attack(testHero));
+  console.log(testHero.strike(testVillain));
+  console.log(testVillain.attack(testHero));
+  console.log(testHero.strike(testVillain));
