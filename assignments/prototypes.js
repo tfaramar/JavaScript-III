@@ -33,7 +33,7 @@ GameObject.prototype.destroy = function(){
 */
 
 function CharacterStats(attributes){
-  GameObject.call(this, attributes)
+  GameObject.call(this, attributes);
     this.healthPoints = attributes.healthPoints
 };
 CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -51,7 +51,7 @@ CharacterStats.prototype.takeDamage = function(){
   * should inherit takeDamage() from CharacterStats
 */
 function Humanoid(attributes){
-  CharacterStats.call(this, attributes)
+  CharacterStats.call(this, attributes);
     this.team = attributes.team,
     this.weapons = attributes.weapons,
     this.language = attributes.language
@@ -135,4 +135,62 @@ Humanoid.prototype.greet = function () {
   // Stretch task:
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  function Villain(attributes){
+    Humanoid.call(this, attributes)
+  };
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.attack = function(target){
+    if (target.healthPoints >= 5){
+      target.healthPoints = target.healthPoints - 5;
+      console.log(target.takeDamage());
+    } else {
+      console.log(target.destroy());
+    }
+  };
+
+  function Hero(attributes){
+    Humanoid.call(this, attributes)
+  };
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.strike = function(target){
+    if (target.healthPoints >= 8){
+      target.healthPoints = target.healthPoints - 8;
+      console.log(target.takeDamage());
+    } else {
+      console.log(target.destroy());
+    }
+  };
+
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+  const drifter = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 12,
+    name: 'Eric',
+    team: 'Rivendell',
+    weapons: [
+      'Dagger',
+      'Shield',
+    ],
+    language: 'Elvish',
+  });
+
+  const homesteader = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Vincent',
+    team: 'Soma',
+    weapons: [
+      'Bow',
+    ],
+    language: 'Common Tongue',
+  });
